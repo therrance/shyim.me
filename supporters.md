@@ -8,6 +8,7 @@ description: "All these great people are supporters \U0001F499"
 
 * Thanks &lt;3 to [Webversiert GmbH](https://www.webversiert.de/) for sponsoring me &lt;3
 * Thanks &lt;3 to [Rafael Prukop](https://github.com/MBDealer) for sponsoring me &lt;3
+* [Christopher Dosin](https://github.com/ChristopherDosin) for sponsoring me <3
 
 ## PayPal Supporters
 
