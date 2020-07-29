@@ -63,7 +63,7 @@ By default Shopware writes in following folders:
 
 ## App Server / Container
 
-To get them in sync you should consider using an external storage like S3, GCP etc. [See this page for an example configuration](). The logs should be aggregated to one place using an tool like FileBeat, Datadog etc. Choose your favorite.
+To get them in sync you should consider using an external storage like S3, GCP etc. [See this page for an example configuration](cluster-setup.md). The logs should be aggregated to one place using an tool like FileBeat, Datadog etc. Choose your favorite.
 
 The JWT Certificate is static, this needs to be only shared once.
 
@@ -176,9 +176,52 @@ session.save_path = "tcp://REDIS_HOST:REDIS_PORT?database=DB"
 ```
 {% endcode %}
 
+### Disabling Admin Worker
+
+Shopware runs by default on any open Administration an long running HTTP Call to handle Messages in this Request. This should be disabled when multiple users are working in the Administration. With the following config can this be disabled
+
+{% code title="config/packages/worker.yaml" %}
+```yaml
+shopware:
+  admin_worker:
+    enable_admin_worker: false
+```
+{% endcode %}
+
+### Logging into Stderr
+
+Logging into stderr makes it easier to catch all logs, when Shopware is running as containers.
+
+{% code title="config/packages/log.yaml" %}
+```yaml
+monolog:
+    channels: ['customchannel']
+    handlers:
+        main:
+            type: fingers_crossed
+            action_level: warning
+            handler: nested
+        customchannel:
+            type: fingers_crossed
+            action_level: info
+            handler: nested
+            channels: ['customchannel']
+        nested:
+            type:  stream
+            path:  "php://stderr"
+            level: debug
+        console:
+            type:  console
+```
+{% endcode %}
+
 ## Plugins
 
 Plugins should be in the repository or required with Composer using [packages](https://packages.friendsofshopware.com). The admin user should not use the plugin manager to update plugins.
+
+## Elasticsearch
+
+The Elasticsearch Indexing can fill very fast the Queue. So you should take care, that the Queue will be processed with the right amount of workers.
 
 ## Known issues
 
@@ -190,6 +233,5 @@ Plugins should be in the repository or required with Composer using [packages](h
 * Request IP is wrong or requests are made with HTTP
   * You need to configure [TRUSTED\_PROXIES](https://symfony.com/doc/current/deployment/proxies.html)
 * The Shopware Core does not support Primary / Replica for MySQL by default
-
-#### 
+* Sitemap cannot be generated with active Elasticsearch without fallback to DBAL
 

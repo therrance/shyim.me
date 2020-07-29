@@ -7,7 +7,3 @@
 
 * [Cluster Setup](tips-and-tricks/cluster-setup.md)
 
-## Problems and Solutions
-
-## FAQ
-
