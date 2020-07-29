@@ -28,6 +28,7 @@ description: "All these great people are supporters \U0001F499"
 * Johan Moormann \(75€\)
 * David Neustadt \(5€\)
 * Christian Voss \(50€\)
+* Stefano Rutishauser \(15€\)
 
 Moneypool-Link: [https://www.paypal.com/pools/c/7ZiGCZH8iU](https://www.paypal.com/pools/c/7ZiGCZH8iU)
 
